@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{{recipt.0.beverage.name}}의 레시피</title>
+</head>
+<body>
+<nav>
+    <a href="/menu/">메뉴목록</a>
+</nav>
+<h>{{recipt.0.beverage.name}}의 레시피</h>
+{% for p in recipt %}
+    <hr/>
+    <h2>{{p.ingredients.name}}</h2>
+    <h4>{{p.quantity}}</h4>
+{% endfor %}
+<hr/>
+</body>
+</html>

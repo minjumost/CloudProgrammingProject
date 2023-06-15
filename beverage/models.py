@@ -11,6 +11,9 @@ class Beverage(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return f'/menu/{self.name}'
+
 class Recipt(models.Model):
     beverage = models.ForeignKey(Beverage, on_delete=models.CASCADE)
     ingredients = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
