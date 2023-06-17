@@ -10,13 +10,3 @@ def ingredient(request):
             'ingredients': ingredients,
         }
     )
-
-def stock(request, pk):
-    ingredient = Ingredient.objects.get(pk=pk)
-    return render(
-        request,
-        'ingredient/stock.html',
-        {
-            'ingredient': ingredient,
-        }
-    )
