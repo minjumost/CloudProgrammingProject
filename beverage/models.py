@@ -7,7 +7,7 @@ class Beverage(models.Model):
     name = models.CharField(max_length=30)
     price = models.IntegerField()
     ingredients = models.ManyToManyField(Ingredient, through='Recipt')
-
+    image = models.ImageField(upload_to='images/', blank=True)
     def __str__(self):
         return self.name
 
