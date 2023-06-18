@@ -10,3 +10,9 @@ def ingredient(request):
             'ingredients': ingredients,
         }
     )
+
+def home(request):
+    return render(
+        request,
+        'ingredient/home.html',
+    )
