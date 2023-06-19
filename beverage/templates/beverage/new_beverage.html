@@ -1,0 +1,42 @@
+{% extends 'beverage/base.html' %}
+
+{% block main_area %}
+<div class="mytitle">
+   <h1><strong>음료 등록하기</strong></h1>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <form method="post" action="/menu/create_beverage/" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="menu" class="form-label">이름</label>
+          <input type="text" class="form-control" placeholder="메뉴명" id="menu" name="name">
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleSelect2" class="form-label">재료 (다중선택)</label>
+          <select multiple class="form-select" id="exampleSelect2" name="ingredients">
+            {% for ingredient in ingredients %}
+              <option value="{{ ingredient.id }}">{{ ingredient.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="price" class="form-label">가격</label>
+          <input type="number" class="form-control" placeholder="숫자를 입력하세요" id="price" name="price">
+        </div>
+
+        <div class="mb-3">
+          <label for="formFile" class="form-label">이미지 업로드</label>
+          <input type="file" class="form-control" id="formFile" name="image">
+        </div>
+
+        <button type="submit" class="btn btn-primary">레시피 등록</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
