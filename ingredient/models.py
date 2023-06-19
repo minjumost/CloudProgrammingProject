@@ -4,7 +4,7 @@ from django.db import models
 class Ingredient(models.Model):
     name = models.CharField(max_length=30)
     ammount = models.IntegerField()
-    is_order = models.BooleanField()
+    is_order = models.BooleanField(null=True)
     min_ammount = models.IntegerField()
     exp_date = models.DateField()
 

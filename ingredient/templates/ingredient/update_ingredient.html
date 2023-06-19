@@ -1,0 +1,15 @@
+{% extends 'beverage/base.html' %}
+
+{% block main_area %}
+<div class="mytitle">
+   <h1><strong>재료 수정하기</strong></h1>
+</div>
+
+<form method="post">{% csrf_token %}
+    <table>
+        {{form}}
+    </table>
+    <button type = "submit" class = "btn btn-primary float=right">Submit</button>
+</form>
+
+{% endblock %}

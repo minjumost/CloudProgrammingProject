@@ -14,13 +14,14 @@
     <tr>
       <th scope="col">발주</th>
       <th scope="col">이름</th>
-        <th scope="col">수량</th>
+        <th scope="col">재고</th>
       <th scope="col">최소 유지 수량</th>
       <th scope="col">유통기한</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
-  {% for p in ingredients %}
+  {% for p in ingredient_list %}
     <tr class="table-secondary">
       <th scope="row"><fieldset class="form-group">
       <div class="form-check">
@@ -32,33 +33,14 @@
       <td>{{p.ammount}}</td>
       <td>{{p.min_ammount}}</td>
         <td>{{p.exp_date}}</td>
+      <td><a href="/stock/update/{{p.pk}}"><button type="button" class="btn btn-primary btn-sm">편집</button></a></td>
+      <td><a href="/stock/delete/{{p.pk}}"><button type="button" class="btn btn-primary btn-sm">삭제</button></a></td>
     </tr>
   {% endfor %}
-    <tr class="table-success">
-      <th scope="row">Success</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-        <td>Column content</td>
-    </tr>
-    <tr class="table-danger">
-      <th scope="row">Danger</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr class="table-warning">
-      <th scope="row">Warning</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
   </tbody>
-</table>
+          </table>
         </div>
-
+      <a href = "/stock/create/"><button type="button" class="btn btn-outline-success">추가</button></a>
     </div>
   </div>
 </section>

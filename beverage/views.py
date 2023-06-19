@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, DeleteView
+from django.views.generic import ListView, DetailView
 from .models import Beverage, Recipt, Ingredient
 from django.apps import apps
 from django.shortcuts import redirect
