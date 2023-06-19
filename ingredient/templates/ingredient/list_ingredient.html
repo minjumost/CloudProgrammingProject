@@ -22,7 +22,7 @@
   </thead>
   <tbody>
   {% for p in ingredient_list %}
-     <tr class="{% if p.is_expired %}table-danger{% else %}table-secondary{% endif %}">
+      <tr class="{% if p.is_expired %}table-danger{% elif p.need_order %}table-warning{% else %}table-secondary{% endif %}">
       <th scope="row"><fieldset class="form-group">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">

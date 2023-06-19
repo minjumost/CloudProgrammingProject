@@ -2,12 +2,22 @@ from django.utils import timezone
 from .models import Ingredient
 
 def update_expired():
-    current_date = timezone.now().date()
+    today = timezone.now().date()
     ingredients = Ingredient.objects.all()
 
-    for ingredient in ingredients:
-        if ingredient.exp_date < current_date:
-            ingredient.is_expired = True
+    for i in ingredients:
+        if i.exp_date < today:
+            i.is_expired = True
         else:
-            ingredient.is_expired = False
-        ingredient.save()
+            i.is_expired = False
+        i.save()
+
+def update_need_order_status():
+    ingredients = Ingredient.objects.all()
+
+    for i in ingredients:
+        if i.ammount < i.min_ammount:
+            i.need_order = True
+        else:
+            i.need_order = False
+        i.save()
