@@ -1,0 +1,28 @@
+{% extends 'beverage/base.html' %}
+
+{% block main_area %}
+<div class="mytitle">
+   <h1><strong>{{recipt.0.beverage.name}} 레시피</strong></h1>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <form method="post" action="/menu/create_recipt/{{recipt.0.beverage.pk}}/">
+        {% csrf_token %}
+        <div class="form-group">
+          <label class="form-label mt-4">각 재료의 양을 등록해주세요</label>
+          {% for r in recipt %}
+          <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="quantity-input" placeholder="quantity" name ="quantity_{{ r.ingredients.name }}">
+            <label for="quantity-input">{{r.ingredients.name}}</label>
+          </div>
+          {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">레시피 등록</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

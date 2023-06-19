@@ -2,14 +2,16 @@
 
 {% block main_area %}
 <div class="mytitle">
-  <h1><strong>{{ recipt.0.beverage.name }}</strong></h1>
+  <h1><strong>{{ beverage.name }}</strong></h1>
 </div>
 
 <section class="py-5">
   <div class="container px-4 px-lg-5 mt-5">
     <div class="row">
       <div class="col-md-6">
-        <img class="card-img-top" src="{{ recipt.0.beverage.image.url }}" alt="..." />
+         <a href="/menu/update_beverage/{{ beverage.pk }}">
+           <img class="card-img-top" src="{{ beverage.image.url }}" alt="..." />
+         </a>
       </div>
       <div class="col-md-6">
         <div class="d-flex align-items-center justify-content-center">
@@ -21,7 +23,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for p in recipt %}
+              {% for p in recipts %}
               <tr class="table-secondary">
                 <th scope="row">{{ p.ingredients.name }}</th>
                 <td>{{ p.quantity }}</td>
@@ -30,6 +32,10 @@
             </tbody>
           </table>
         </div>
+      </div>
+      <div class="mt-3 d-flex justify-content-center">
+        <a href="/menu/update_beverage/{{ beverage.pk }}" class="btn btn-primary me-3">수정</a>
+        <a href="/menu/delete_beverage/{{ beverage.pk }}" class="btn btn-danger">삭제</a>
       </div>
     </div>
   </div>

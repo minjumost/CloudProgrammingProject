@@ -12,7 +12,7 @@ class Beverage(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return f'/menu/{self.name}'
+        return f'/menu/{self.pk}'
 
 class Recipt(models.Model):
     beverage = models.ForeignKey(Beverage, on_delete=models.CASCADE)
