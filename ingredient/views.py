@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Ingredient
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from .utils import update_expired
+from .utils import update_expired, update_need_order_status
 # Create your views here.
 
 def home(request):
@@ -15,7 +15,8 @@ class ViewIngredients(ListView):
     template_name = 'ingredient/list_ingredient.html'
     def get_queryset(self):
         queryset = super().get_queryset()
-        update_expired()  # update_expired_status 함수 호출
+        update_expired()
+        update_need_order_status()
         return queryset
 class CreateIngredient(CreateView):
     model = Ingredient
