@@ -12,12 +12,12 @@
         {% csrf_token %}
         <div class="mb-3">
           <label for="menu" class="form-label">이름</label>
-          <input type="text" class="form-control" placeholder="메뉴명" id="menu" name="name">
+          <input type="text" class="form-control" placeholder="메뉴명" id="menu" name="name" required>
         </div>
 
         <div class="mb-3">
           <label for="exampleSelect2" class="form-label">재료 (다중선택)</label>
-          <select multiple class="form-select" id="exampleSelect2" name="ingredients">
+          <select multiple class="form-select" id="exampleSelect2" name="ingredients" required>
             {% for ingredient in ingredients %}
               <option value="{{ ingredient.id }}">{{ ingredient.name }}</option>
             {% endfor %}
@@ -26,12 +26,12 @@
 
         <div class="mb-3">
           <label for="price" class="form-label">가격</label>
-          <input type="number" class="form-control" placeholder="숫자를 입력하세요" id="price" name="price">
+          <input type="number" class="form-control" placeholder="숫자를 입력하세요" id="price" name="price" required>
         </div>
 
         <div class="mb-3">
           <label for="formFile" class="form-label">이미지 업로드</label>
-          <input type="file" class="form-control" id="formFile" name="image">
+          <input type="file" class="form-control" id="formFile" name="image" required>
         </div>
 
         <button type="submit" class="btn btn-primary">레시피 등록</button>
@@ -39,4 +39,6 @@
     </div>
   </div>
 </div>
+
+
 {% endblock %}

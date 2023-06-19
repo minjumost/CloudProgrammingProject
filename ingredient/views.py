@@ -20,7 +20,7 @@ class ViewIngredients(ListView):
         return queryset
 class CreateIngredient(CreateView):
     model = Ingredient
-    fields = ['name', 'ammount', 'exp_date', 'min_ammount']
+    fields = ['name', 'ammount', 'min_ammount', 'exp_date', ]
     template_name = 'ingredient/create_ingredient.html'
     success_url = '/stock/'
 
