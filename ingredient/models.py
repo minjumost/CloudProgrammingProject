@@ -4,9 +4,9 @@ from django.db import models
 class Ingredient(models.Model):
     name = models.CharField(max_length=30)
     ammount = models.IntegerField()
-    is_order = models.BooleanField(null=True)
     min_ammount = models.IntegerField()
     exp_date = models.DateField()
-
+    is_expired = models.BooleanField(null=True)
+    need_order = models.BooleanField(null=True)
     def __str__(self):
         return self.name
