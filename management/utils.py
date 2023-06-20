@@ -1,7 +1,7 @@
 from django.db.models import Count
 
 from management.models import Sales
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 
 
 def best_seller():
@@ -38,11 +38,14 @@ def daily_income():
 
     return total_income
 
-def monthly_income():
-    this_month = date.month
-    monthly_sales = Sales.objects.filter(date=this_month)
+def last_week_income():
+    last_week = date.today() - timedelta(days=7)
+    last_week_sales = Sales.objects.filter(date=last_week)
+
     total_income = 0
-    for sale in monthly_sales:
+
+    for sale in last_week_sales:
         total_income += sale.price
 
     return total_income
+
