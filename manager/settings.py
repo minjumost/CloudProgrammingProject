@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+LOGIN_URL = '/need_login'
+LOGIN_REDIRECT_URL = '/menu'
 # Application definition
 
 INSTALLED_APPS = [

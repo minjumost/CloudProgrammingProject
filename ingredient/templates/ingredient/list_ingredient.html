@@ -33,14 +33,15 @@
       <td>{{p.ammount}}</td>
       <td>{{p.min_ammount}}</td>
         <td>{{p.exp_date}}</td>
-      <td><a href="/stock/update/{{p.pk}}"><button type="button" class="btn btn-primary btn-sm">편집</button></a></td>
-      <td><a href="/stock/delete/{{p.pk}}"><button type="button" class="btn btn-primary btn-sm">삭제</button></a></td>
+      <td><a href="/stock/update/{{p.pk}}"><button type="button" class="btn btn-primary btn-sm btn-outline-light">편집</button></a></td>
+      <td><a href="/stock/delete/{{p.pk}}"><button type="button" class="btn btn-primary btn-sm btn-outline-light">삭제</button></a></td>
     </tr>
   {% endfor %}
   </tbody>
           </table>
         </div>
-            <a href = "/stock/create/"><button type="button" class="btn btn-outline-success">추가</button></a>
+        <div class="d-grid gap-2">
+        <a href = "/stock/create/" class="btn btn-primary btn-outline-primary" type="button">추가하기</a>
     </div>
 
   </div>

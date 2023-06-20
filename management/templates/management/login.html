@@ -1,0 +1,15 @@
+{% extends 'beverage/base.html' %}
+
+{% block main_area %}
+
+<form method="POST" action="/login/">
+  {% csrf_token %}
+  {% if error %}
+    <div>{{ error }}</div>
+  {% endif %}
+  <input type="text" name="username" placeholder="사용자명" required>
+  <input type="password" name="password" placeholder="비밀번호" required>
+  <button type="submit">로그인</button>
+</form>
+
+{% endblock %}

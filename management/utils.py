@@ -1,4 +1,7 @@
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.db.models import Count
+from django.shortcuts import redirect
 
 from management.models import Sales
 from datetime import datetime, date, timedelta
@@ -49,3 +52,16 @@ def last_week_income():
 
     return total_income
 
+class ManagerRequiredMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.groups.filter(name='manager').exists()
+
+    def handle_no_permission(self):
+        return redirect('/permission_denied/')
+
+def is_manager(user):
+    return user.groups.filter(name='manager').exists()
+
+def manager_required(view_func):
+    decorated_view_func = user_passes_test(is_manager, login_url = 'permission_denied/')(view_func)
+    return decorated_view_func
