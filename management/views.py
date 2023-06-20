@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
@@ -59,6 +60,7 @@ def sale(request):
             recipt.ingredients.ammount -= quantity
             recipt.ingredients.save()
 
+        messages.success(request, product+' 판매 완료 (+'+ price+'원)' )
         return redirect('/menu')
 
     return render(request, '/menu')
@@ -68,7 +70,7 @@ class Login(LoginView):
    template_name = 'management/login.html'
 
 class Logout(LoginRequiredMixin, LogoutView):
-    template_name = 'management/login.html'
+    template_name = 'management/logout.html'
 
 def need_login(request):
     return render(

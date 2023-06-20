@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarColor03">
       <ul class="navbar-nav me-auto">
          <li class="nav-item">
-          <a class="nav-link active" href="/menu">메뉴관리</a>
+          <a class="nav-link" href="/menu">메뉴관리</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/stock">재고관리</a>
@@ -18,9 +18,9 @@
       </ul>
       <div class="d-flex">
           {% if user.is_authenticated %}
-            <h6 class="ms-auto"> {{ user.username }} ({{ user.groups.first }})님 <a href="/logout">Logout</a></h6>
+            <h6 class="ms-auto"> {{ user.username }} ({{ user.groups.first }})님 <a href="/logout"><span class="badge bg-primary">Logout</span></a></h6>
          {% else %}
-            <h6 class="ms-auto"> <a href="/login">Login</a></h6>
+            <h6 class="ms-auto"> <a href="/login"><span class="badge bg-primary">Login</span></a></h6>
          {% endif %}
       </div>
     </div>
