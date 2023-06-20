@@ -1,9 +1,7 @@
-from django.db.models import Count, Sum, DateField, Q
-from django.db.models.functions import Cast
-from django.utils.datetime_safe import strftime
+from django.db.models import Count
 
 from management.models import Sales
-from datetime import datetime, timedelta, date
+from datetime import datetime, date
 
 
 def best_seller():
@@ -24,10 +22,27 @@ def best_seller_ammount():
 
 
 def sales_amount_by_hour():
-    sales_list = [0] * 12
+    sales_list = [0] * 13
     today_selling = Sales.objects.filter(date=date.today())
     for i in today_selling:
        if 9 <= i.time.hour <= 20:
-           sales_list[i.time.hour] += i.price
-
+           sales_list[i.time.hour-9] += i.price
     return sales_list
+
+def daily_income():
+    today = date.today()
+    today_sales = Sales.objects.filter(date=today)
+    total_income = 0
+    for sale in today_sales:
+        total_income += sale.price
+
+    return total_income
+
+def monthly_income():
+    this_month = date.month
+    monthly_sales = Sales.objects.filter(date=this_month)
+    total_income = 0
+    for sale in monthly_sales:
+        total_income += sale.price
+
+    return total_income
