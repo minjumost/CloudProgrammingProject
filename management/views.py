@@ -56,7 +56,7 @@ def sale(request):
         recipts = Recipt.objects.filter(beverage__name=product)
         for recipt in recipts:
             quantity = recipt.quantity
-            recipt.ingredients.ammount -= quantity
+            recipt.ingredients.stock -= quantity
             recipt.ingredients.save()
 
         messages.success(request, product+' 판매 완료 (+'+ price+'원)' )

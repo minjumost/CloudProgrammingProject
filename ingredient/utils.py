@@ -16,7 +16,7 @@ def update_need_order_status():
     ingredients = Ingredient.objects.all()
 
     for i in ingredients:
-        if i.ammount < i.min_ammount:
+        if i.stock < i.min_stock:
             i.need_order = True
         else:
             i.need_order = False

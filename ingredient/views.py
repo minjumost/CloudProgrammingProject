@@ -1,5 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from management.utils import ManagerRequiredMixin
+from django.shortcuts import redirect
+
+from management.utils import ManagerRequiredMixin, manager_required
 from .models import Ingredient
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .utils import update_expired, update_need_order_status
@@ -16,12 +19,13 @@ class ViewIngredients(LoginRequiredMixin, ListView):
         return queryset
 class CreateIngredient(LoginRequiredMixin, ManagerRequiredMixin, CreateView):
     model = Ingredient
-    fields = ['name', 'ammount', 'min_ammount', 'exp_date', ]
+    fields = ['name', 'stock', 'min_stock', 'order_quantity', 'exp_date', ]
     labels = {
         'name': '이름',
-        'ammount': '재고량(g, mL)',
-        'min_ammount': '최소 유지 수량(g, mL)',
+        'stock': '재고량(g, mL)',
+        'min_stock': '최소 유지 수량(g, mL)',
         'exp_date': '소비 기한(yyyy-mm-dd)',
+        'order_quantity': '주문량',
     }
     template_name = 'ingredient/create_ingredient.html'
     success_url = '/stock/'
@@ -34,12 +38,13 @@ class CreateIngredient(LoginRequiredMixin, ManagerRequiredMixin, CreateView):
 
 class UpdateIngredient(LoginRequiredMixin, ManagerRequiredMixin, UpdateView):
     model = Ingredient
-    fields = ['name', 'ammount', 'exp_date', 'min_ammount']
+    fields = ['name', 'stock', 'min_stock', 'order_quantity', 'exp_date', ]
     labels = {
         'name': '이름',
-        'ammount': '재고량(g, mL)',
-        'min_ammount': '최소 유지 수량(g, mL)',
+        'stock': '재고량(g, mL)',
+        'min_stock': '최소 유지 수량(g, mL)',
         'exp_date': '소비 기한(yyyy-mm-dd)',
+        'order_quantity': '주문량',
     }
     success_url = '/stock/'
     template_name = 'ingredient/update_ingredient.html'
@@ -55,3 +60,12 @@ class DeleteIngredient(LoginRequiredMixin, ManagerRequiredMixin, DeleteView):
     model = Ingredient
     template_name = 'ingredient/delete_ingredient.html'
     success_url = '/stock/'
+
+@login_required
+@manager_required
+def order(request, pk):
+    ingredient = Ingredient.objects.get(pk = pk)
+    ingredient.stock += ingredient.order_quantity
+    ingredient.save()
+
+    return redirect('/stock')
