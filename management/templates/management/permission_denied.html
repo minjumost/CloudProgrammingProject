@@ -1,0 +1,8 @@
+{% extends 'beverage/base.html' %}
+
+{% block main_area %}
+    <script>
+        alert("권한이 없습니다.");
+        history.back();  // 리디렉션할 URL 설정
+    </script>
+{% endblock %}

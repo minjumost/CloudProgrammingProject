@@ -1,5 +1,9 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
+
+from management.utils import manager_required
 from .models import Beverage, Recipt, Ingredient
 from django.apps import apps
 from django.shortcuts import redirect
@@ -10,7 +14,7 @@ class BeverageList(ListView):
     model = Beverage
     template_name = 'beverage/menu.html'
 
-class BeverageDetail(DetailView):
+class BeverageDetail(LoginRequiredMixin, DetailView):
     model = Beverage
     template_name = 'beverage/recipt.html'
     context_object_name = 'beverage'
@@ -21,6 +25,8 @@ class BeverageDetail(DetailView):
         context['recipts'] = Recipt.objects.filter(beverage__id=self.object.id)
         return context
 
+@login_required
+@manager_required
 def create(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -43,7 +49,8 @@ def create(request):
             'ingredients': ingredients,
         }
     )
-
+@login_required
+@manager_required
 def create_recipt(request, pk):
     beverage = Beverage.objects.get(pk=pk)
 
@@ -72,6 +79,8 @@ def create_recipt(request, pk):
         }
     )
 
+@login_required
+@manager_required
 def update_beverage(request, pk):
     beverage = Beverage.objects.get(pk=pk)
 
@@ -103,7 +112,8 @@ def update_beverage(request, pk):
             'ingredients': ingredients,
         }
     )
-
+@login_required
+@manager_required
 def delete_beverage(request, pk):
     beverage = Beverage.objects.get(pk=pk)
     beverage.delete()
