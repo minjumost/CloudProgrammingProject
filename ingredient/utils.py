@@ -21,3 +21,21 @@ def update_need_order_status():
         else:
             i.need_order = False
         i.save()
+
+def expired():
+    expired_ingredients = Ingredient.objects.filter(is_expired=True)
+    total_expired = 0
+
+    for i in expired_ingredients:
+        total_expired += 1
+
+    return total_expired
+
+def need_to_order():
+    empty_ingredients = Ingredient.objects.filter(need_order=True)
+    total_empty = 0
+
+    for i in empty_ingredients:
+        total_empty +=1
+
+    return total_empty

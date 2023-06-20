@@ -4,11 +4,6 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .utils import update_expired, update_need_order_status
 # Create your views here.
 
-def home(request):
-    return render(
-        request,
-        'ingredient/home.html',
-    )
 
 class ViewIngredients(ListView):
     model = Ingredient
