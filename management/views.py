@@ -49,17 +49,28 @@ def sale(request):
         product = request.POST.get('product')
         price = request.POST.get('price')
 
-        #판매정보 등록
-        Sales.objects.create(product=product, price=price)
+        recipts = Recipt.objects.filter(beverage__name=product)
+
 
         #판매된 음료의 재고량 업데이트
-        recipts = Recipt.objects.filter(beverage__name=product)
         for recipt in recipts:
             quantity = recipt.quantity
             recipt.ingredients.stock -= quantity
+            if(recipt.ingredients.stock < 0):
+                message = "재고가 부족합니다!"
+                return render(
+                    request,
+                    'management/notice.html',
+                    {
+                        'message': message
+                    }
+                )
             recipt.ingredients.save()
 
+        # 판매정보 등록
+        Sales.objects.create(product=product, price=price)
         messages.success(request, product+' 판매 완료 (+'+ price+'원)' )
+
         return redirect('/menu')
 
     return render(request, '/menu')
@@ -69,16 +80,29 @@ class Login(LoginView):
    template_name = 'management/login.html'
 
 class Logout(LoginRequiredMixin, LogoutView):
-    template_name = 'management/logout.html'
+    template_name = 'management/notice.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['message'] = "로그아웃되었습니다."
+        return context
 
 def need_login(request):
+    message = "로그인 해주세요!"
     return render(
         request,
-        'management/need_login.html',
+        'management/notice.html',
+        {
+            'message': message
+        }
     )
 
 def permission_denied(request):
+    message = "권한이 없습니다!"
     return render(
         request,
-        'management/permission_denied.html',
+        'management/notice.html',
+        {
+            'message': message
+        }
     )
