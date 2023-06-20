@@ -10,7 +10,6 @@ import json
 from ingredient.utils import expired, need_to_order
 from django.contrib.auth.views import LoginView, LogoutView
 
-
 # Create your views here.
 
 def home(request):

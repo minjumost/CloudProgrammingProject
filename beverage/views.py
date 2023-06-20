@@ -27,7 +27,7 @@ class BeverageDetail(LoginRequiredMixin, DetailView):
 
 @login_required
 @manager_required
-def create(request):
+def create_beverage(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         price = request.POST.get('price')
@@ -67,7 +67,6 @@ def create_recipt(request, pk):
             recipt = Recipt.objects.get(beverage=beverage, ingredients=ingredient)
             recipt.quantity = quantity
             recipt.save()
-        print(f"Saved Recipt: beverage={recipt.beverage}, ingredient={recipt.ingredients}, quantity={recipt.quantity}")
         return redirect('/menu/')
 
     recipt = Recipt.objects.filter(beverage=beverage)

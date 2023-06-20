@@ -4,8 +4,8 @@ from . import views
 urlpatterns = [
     path('', views.BeverageList.as_view()),
     path('<int:pk>/', views.BeverageDetail.as_view()),
-    path('create_beverage/', views.create),
-    path('create_recipt/<int:pk>/', views.create_recipt),
+    path('create_beverage/', views.create_beverage),
     path('update_beverage/<int:pk>/', views.update_beverage),
-    path('delete_beverage/<int:pk>/', views.delete_beverage)
+    path('delete_beverage/<int:pk>/', views.delete_beverage),
+    path('create_recipt/<int:pk>/', views.create_recipt),
 ]
