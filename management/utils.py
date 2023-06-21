@@ -7,12 +7,13 @@ from management.models import Sales
 from datetime import datetime, date, timedelta
 
 
+
+
 def best_seller():
     top_selling_products = Sales.objects.filter(date=date.today()).values('product').annotate(total_sales=Count('product')).order_by('-total_sales')[:3]
     product_list = []
     for item in top_selling_products:
         product_list.append(item['product'])
-    print(product_list)
     return product_list
 
 def best_seller_ammount():
@@ -54,13 +55,13 @@ def last_week_income():
 
 class ManagerRequiredMixin(UserPassesTestMixin):
     def test_func(self):
-        return self.request.user.groups.filter(name='manager').exists()
+        return self.request.user.groups.filter(name='매니저').exists()
 
     def handle_no_permission(self):
         return redirect('/permission_denied')
 
 def is_manager(user):
-    return user.groups.filter(name='manager').exists()
+    return user.groups.filter(name='매니저').exists()
 
 def manager_required(view_func):
     decorated_view_func = user_passes_test(is_manager, login_url = '/permission_denied')(view_func)

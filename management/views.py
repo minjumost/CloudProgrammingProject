@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-from beverage.models import  Recipt
+from beverage.models import Recipt
 from .models import Sales
 from .utils import best_seller, best_seller_ammount, sales_amount_by_hour, daily_income, last_week_income, \
     manager_required
@@ -15,7 +15,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 def home(request):
     return render(
         request,
-        'management/home.html',
+        'management/index.html',
     )
 @login_required
 @manager_required
@@ -56,6 +56,19 @@ def sale(request):
         for recipt in recipts:
             quantity = recipt.quantity
             recipt.ingredients.stock -= quantity
+
+            #소비기한이 지난 재료가 없는지 검사
+            if (recipt.ingredients.is_expired):
+                message = "소비기한을 확인해주세요!"
+                return render(
+                    request,
+                    'management/notice.html',
+                    {
+                        'message': message
+                    }
+                )
+
+            #수량이 부족한 재료가 없는지 검사
             if(recipt.ingredients.stock < 0):
                 message = "재고가 부족합니다!"
                 return render(
@@ -65,6 +78,7 @@ def sale(request):
                         'message': message
                     }
                 )
+
             recipt.ingredients.save()
 
         # 판매정보 등록
