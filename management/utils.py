@@ -29,8 +29,8 @@ def sales_amount_by_hour():
     sales_list = [0] * 13
     today_selling = Sales.objects.filter(date=date.today())
     for i in today_selling:
-       if 9 <= i.time.hour <= 20:
-           sales_list[i.time.hour-9] += i.price
+       if 11 <= i.time.hour <= 22:
+           sales_list[i.time.hour-11] += i.price
     return sales_list
 
 def daily_income():

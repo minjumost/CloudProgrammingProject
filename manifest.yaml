@@ -1,6 +1,6 @@
 ---
 applications:
-- name: djangoblog201710993
+- name: cafemanager
   buildpack: paketo-buildpacks/python
   memory: 256M
   instances: 1
